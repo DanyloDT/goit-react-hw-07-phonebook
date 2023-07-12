@@ -1,28 +1,47 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import {
+  addContsctThunk,
+  deleteContsctThunk,
+  getContactsThunk,
+} from './operations';
 
 const initialState = {
   contacts: [],
+  loading: 'false',
+  error: '',
 };
-
-const addPrepareContacts = ({ name, number }) => {
-  return { payload: { id: nanoid(), name, number } };
+const pending = state => {
+  state.loading = true;
+  state.error = '';
+};
+const rejected = (state, action) => {
+  state.loading = false;
+  state.error = action.payload;
 };
 
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
-  reducers: {
-    addContact: {
-      reducer: (state, action) => {
+  extraReducers: builder => {
+    builder
+      .addCase(getContactsThunk.fulfilled, (state, action) => {
+        state.contacts = action.payload;
+        state.loading = false;
+      })
+      .addCase(deleteContsctThunk.fulfilled, (state, action) => {
+        const index = state.contacts.findIndex(
+          el => el.id === action.payload.id
+        );
+        state.contacts.splice(index, 1);
+        state.loading = false;
+      })
+      .addCase(addContsctThunk.fulfilled, (state, action) => {
         state.contacts.push(action.payload);
-      },
-      prepare: addPrepareContacts,
-    },
-    onDelete: (state, action) => {
-      const index = state.contacts.findIndex(el => el.id === action.payload);
-      state.contacts.splice(index, 1);
-    },
+        state.loading = false;
+      })
+      .addMatcher(action => action.type.endsWith('/pending'), pending)
+      .addMatcher(action => action.type.endsWith('/rejected'), rejected);
   },
 });
-export const { addContact, onDelete } = contactsSlice.actions;
+
 export const contactsReducer = contactsSlice.reducer;

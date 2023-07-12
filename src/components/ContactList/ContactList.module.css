@@ -8,10 +8,13 @@
 .item {
   display: flex;
   justify-content: space-between;
-  max-width: 300px;
-  gap: 10px;
+  max-width: 400px;
+  gap: 30px;
 }
-
+/* .item_text {
+  display: flex;
+  gap: 10px;
+} */
 .btn {
   min-width: 58px;
   min-height: 20px;
