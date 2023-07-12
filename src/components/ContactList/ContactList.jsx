@@ -2,14 +2,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectFilterData } from 'redux/selector';
 
 import css from './ContactList.module.css';
-import { deleteContsctThunk } from 'redux/operations';
+import { deleteContactThunk } from 'redux/operations';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
   const filteredData = useSelector(selectFilterData);
 
   const handleDelete = id => {
-    dispatch(deleteContsctThunk(id));
+    dispatch(deleteContactThunk(id));
   };
 
   return (

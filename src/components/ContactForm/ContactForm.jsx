@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectorContacts } from 'redux/selector';
 
 import css from './ContactForm.module.css';
-import { addContsctThunk } from 'redux/operations';
+import { addContactThunk } from 'redux/operations';
 
 const INITIAL_STATE = {
   name: '',
@@ -31,7 +31,7 @@ export const ContactForm = () => {
       return;
     }
 
-    dispatch(addContsctThunk({ name, phone }));
+    dispatch(addContactThunk({ name, phone }));
     setState({ ...INITIAL_STATE });
   };
 

@@ -4,7 +4,7 @@ import { Filter } from './Filter/Filter';
 import css from './App.module.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContactsThunk } from 'redux/operations';
+import { fetchContactsThunk } from 'redux/operations';
 import { Loader } from './Loader/Loader';
 import { selectorLoading } from 'redux/selector';
 
@@ -13,7 +13,7 @@ export const App = () => {
   const isLoading = useSelector(selectorLoading);
 
   useEffect(() => {
-    dispatch(getContactsThunk());
+    dispatch(fetchContactsThunk());
   }, [dispatch]);
 
   return (

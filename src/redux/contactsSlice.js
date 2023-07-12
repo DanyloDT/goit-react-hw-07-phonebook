@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  addContsctThunk,
-  deleteContsctThunk,
-  getContactsThunk,
+  addContactThunk,
+  deleteContactThunk,
+  fetchContactsThunk,
 } from './operations';
 
 const initialState = {
   contacts: [],
   loading: 'false',
-  error: '',
+  error: null,
 };
 const pending = state => {
   state.loading = true;
@@ -24,18 +24,18 @@ const contactsSlice = createSlice({
   initialState,
   extraReducers: builder => {
     builder
-      .addCase(getContactsThunk.fulfilled, (state, action) => {
+      .addCase(fetchContactsThunk.fulfilled, (state, action) => {
         state.contacts = action.payload;
         state.loading = false;
       })
-      .addCase(deleteContsctThunk.fulfilled, (state, action) => {
+      .addCase(deleteContactThunk.fulfilled, (state, action) => {
         const index = state.contacts.findIndex(
           el => el.id === action.payload.id
         );
         state.contacts.splice(index, 1);
         state.loading = false;
       })
-      .addCase(addContsctThunk.fulfilled, (state, action) => {
+      .addCase(addContactThunk.fulfilled, (state, action) => {
         state.contacts.push(action.payload);
         state.loading = false;
       })

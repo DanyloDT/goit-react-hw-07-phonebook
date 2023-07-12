@@ -5,8 +5,8 @@ const mockApi = axios.create({
   baseURL: 'https://64aeb805c85640541d4d97b7.mockapi.io',
 });
 
-export const getContactsThunk = createAsyncThunk(
-  'contacts/getContacts',
+export const fetchContactsThunk = createAsyncThunk(
+  'contacts/fetchContacts',
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await mockApi.get('/contacts');
@@ -18,7 +18,7 @@ export const getContactsThunk = createAsyncThunk(
   }
 );
 
-export const deleteContsctThunk = createAsyncThunk(
+export const deleteContactThunk = createAsyncThunk(
   'contacts/deleteContact',
   async (id, { rejectWithValue }) => {
     try {
@@ -38,7 +38,7 @@ export const deleteContsctThunk = createAsyncThunk(
   }
 );
 
-export const addContsctThunk = createAsyncThunk(
+export const addContactThunk = createAsyncThunk(
   'contacts/addContact',
   async (addContact, { rejectWithValue }) => {
     try {
